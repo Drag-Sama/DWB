@@ -6,4 +6,4 @@ const app = express()
 
 
 app.use("/housing", housingRoute)
-app.listen(3000, () => console.log('api_test listening on port 3000!'))
+app.listen(3000, () => console.log('api_housings listening on port 3000!'))
