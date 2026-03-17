@@ -23,13 +23,14 @@ function getLocationIndexById(id){
     return null;
 }
 
-function getLocationIndexByCity(city){
+function getAllLocationBy(property,value){
+    let data = []
     for(i in locations){
-            if(locations[i].city == city){
-                return i
+            if(locations[i][property] == value){
+                data.push(locations[i]);
             }
         }
-    return null;
+    return data;
 }
 
 function sortLocationsBy(property) {  
@@ -60,24 +61,19 @@ function fetchLocations() {
         console.error(error);
  } }
 
- function fetchLocationByCity(city) {
+ function fetchLocationBy(property,value) {
     try {
-        console.log("fetchLocationByCity : " + city);
-        const data = getLocationIndexByCity(city);
-        if(data != null)
-            return locations[data]
-        return "Location not found";
+        console.log("fetchLocationBy : " + property);
+        const data = getAllLocationBy(property,value);
+        return data;
     } catch (error) {
         console.error(error);
  } }
 
  function fetchLocationSortedBy(property) {
     try {
-        console.log("fetchLocationByCity : " + city);
-        const data = getLocationIndexByCity(city);
-        if(data != null)
-            return locations[data]
-        return "Location not found";
+        console.log("fetchLocationSortedBy : " + property);
+        return sortLocationsBy(property);
     } catch (error) {
         console.error(error);
  } }
@@ -146,4 +142,4 @@ function deleteLocation(id) {
  }
 
 
- module.exports = {fetchLocations, fetchLocationById, fetchLocationByCity, createLocation, deleteLocation,editLocation };
+ module.exports = {fetchLocations, fetchLocationById, fetchLocationSortedBy, fetchLocationBy, createLocation, deleteLocation,editLocation };

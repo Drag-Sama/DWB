@@ -6,8 +6,8 @@ const router = express.Router();
 //Get
 router.get("/", (req,res) => res.send(locationController.fetchLocations()))
 router.get("/:id", (req,res) => res.send(locationController.fetchLocationById(req.params.id)))
-router.get("/city/:city", (req,res) => res.send(locationController.fetchLocationByCity(req.params.city)))
-router.get("/sort/:property", (req,res) => res.send(locationController.fetchLocationByCity(req.params.city)))
+router.get("/filter/:property/:value", (req,res) => res.send(locationController.fetchLocationBy(req.params.property,req.params.value)))
+router.get("/sort/:property", (req,res) => res.send(locationController.fetchLocationSortedBy(req.params.property)))
 
 //Post
 router.post("/:location", (req,res) => res.send(locationController.createLocation(req.params.location)))
