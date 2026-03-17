@@ -2,7 +2,7 @@ class Logement{
     constructor(id,name, adresse, city, price, size){
         this.id = id;
         this.name = name;
-        this.adresse = adresse;
+        this.adress = adress;
         this.city = city,
         this.price = price;
         this.size = size;
