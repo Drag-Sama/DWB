@@ -1,13 +1,19 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
+}
+
+model Housings {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  adresse String
+  city    String?
+  /// Multiple data types found: String: 16.7%, Int: 83.3% out of 6 sampled entries
+  id_     Json    @map("id")
+  name    String
+  price   String?
+  size    String?
 }

@@ -1,2 +1,5 @@
 json/*
-/generated/prisma
+generated/prisma/*
+generated/*
+node_modules/*
+
