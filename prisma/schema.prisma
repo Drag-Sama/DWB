@@ -13,8 +13,6 @@ model Housings {
   city    String?
   id_     Int     @map("id")
   name    String
-  /// Multiple data types found: String: 25%, BigInt: 75% out of 4 sampled entries
-  price   Json
-  /// Multiple data types found: String: 25%, Int: 75% out of 4 sampled entries
-  size    Json
+  price   BigInt
+  size    Int
 }
