@@ -4,7 +4,8 @@ const housingController = require("../Controller/HousingController")
 const router = express.Router();
 
 //Get
-router.get("/", (req,res) => res.send(housingController.getHousings()))
+router.get("/", housingController.getHousings)
+router.get("/{:id}", housingController.getHousingById)
 /*
 router.get("/:id", (req,res) => res.send(housingController.fetchHousingById(req.params.id)))
 router.get("/filter/:property/:value", (req,res) => res.send(housingController.fetchHousingBy(req.params.property,req.params.value)))

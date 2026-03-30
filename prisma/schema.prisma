@@ -5,19 +5,15 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-<<<<<<< HEAD
-  url = "mongodb+srv://admin:admin@cluster0.scfpkji.mongodb.net/dwb?retryWrites=true&w=majority"
-=======
   url      = "mongodb+srv://admin:admin@cluster0.scfpkji.mongodb.net/dwb?retryWrites=true&w=majority"
->>>>>>> fba8149ba6ec127e8a1a24aab6f4648ba87ac033
 }
 
 model Housings {
-  id      Int  @id @map("_id")
+  id      String  @id @map("_id")
   adresse String
   city    String
   name    String
-  price   BigInt
+  price   Int
   size    Int
 }
 
