@@ -14,6 +14,7 @@ const path = "./json/Housing.json"
 const data = fs.readFileSync(path)
 housings = JSON.parse(data)
 
+
 function getHousingIndexById(id){
     for(i in housings){
             if(housings[i].id == id){
