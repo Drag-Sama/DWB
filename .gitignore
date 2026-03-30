@@ -2,4 +2,4 @@ json/*
 generated/prisma/*
 generated/*
 node_modules/*
-
+.vscode/*
