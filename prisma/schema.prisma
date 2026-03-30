@@ -5,6 +5,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
+  url      = "mongodb+srv://admin:admin@cluster0.scfpkji.mongodb.net/dwb?retryWrites=true&w=majority"
 }
 
 model Housings {

@@ -1,30 +1,12 @@
-const express = require('express')
-const {PrismaClient}  = require("@prisma/client");
-const housingRouter = require("./Routes/housing");
+const express = require("express")
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
-const prisma = new PrismaClient();
+const housingRouter = require("./Routes/housing")
 
-const app = express();
-const port = 8080;
+const app = express()
 
-async function main() {
-  app.use(express.json());
+app.use("/housing", housingRouter);
 
-  // Register API routes
-  app.use("/housing", housingRouter);
-
-
-  app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-  });
-}
-
-main()
-  .then(async () => {
-    await prisma.$connect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+app.use(express.json())
+app.listen(3000, () => console.log('Server running on port 3000'))
