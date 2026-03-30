@@ -1,6 +1,45 @@
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
+class User {
+    constructor(id, firstName, name,birthday) {
+        this.firstName = firstName;
+        this.name = name;
+        this.birthday = birthday;
+    }
+}
+
+//GETs
+getAllUsers = async (req, res) => {
+    try {
+        const users = await prisma.user.findMany()
+        res.json(users)
+    } catch (err) {
+        console.error("Error getAllUsers : " + err)
+        res.status(500).json({error: "Internal server error"})
+    } 
+}
+
+//POSTs
+addUser = async (req,res) => {
+    console.log(req.body)
+    try {
+        const {firstName, name, birthday} = req.body
+        const user = await prisma.user.create({
+           data: {
+            firstName,
+            name,
+            birthday
+           }
+        })
+        res.status(201).json(user)
+    } catch (err) {
+        console.error("Error AddUser : ", err)
+        res.status(500).json({error: "Internal server error"})
+    }
+}
+
+//PUTs
 updateUser = async(req,res)=> {
     const {id} = req.params
     try {
@@ -14,27 +53,19 @@ updateUser = async(req,res)=> {
     }
 }
 
-class User {
-    constructor(id, firstName, name,birthdate) {
-        this.id = id;
-        this.firstName = firstName;
-        this.name = name;
-        this.birthdate = birthdate;
+//DELETEs
+deleteUser = async (req,res) => {
+    try {
+        const {id} = req.params
+        const user = await prisma.user.deleteMany({
+            where: {id:id}
+        })
+        res.status(200).json({message:"User deleted",user:user})
+    } catch (err) {
+        console.error("Error DeleteUser:", err)
+        res.status(500).json({error: "Internal server error"})
     }
 }
 
-async function getAllUsers() {
-    return await prisma.user.findMany()
-}
 
-/*async function addUser(user) {
-    prisma.user.create()
-}*/
-
-function showUsers(list){
-    for (usr in list) {
-        console.log("Name : " + usr.firstName + "\n")
-    }
-}
-
-module.exports = {updateUser}
+module.exports = {updateUser,getAllUsers,addUser,deleteUser}

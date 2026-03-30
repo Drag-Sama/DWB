@@ -9,16 +9,21 @@ datasource db {
 }
 
 model Housings {
-  id      String  @id @map("_id")
+  /// Multiple data types found: String: 25%, String (ObjectId): 75% out of 4 sampled entries
+  id      Json   @id @map("_id")
   adresse String
   city    String
+  id_     Int?   @map("id")
   name    String
-  price   Int
-  size    Int
+  price   BigInt
+  /// Multiple data types found: Int: 75%, BigInt: 25% out of 4 sampled entries
+  size    Json
 }
 
+/// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
 model User {
-  id        Int @id @map("_id")
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  birthday  String
   firstName String
   name      String
 }
