@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
 }
 
@@ -8,11 +8,16 @@ datasource db {
 }
 
 model Housings {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id      Int  @id @map("_id")
   adresse String
-  city    String?
-  id_     Int     @map("id")
+  city    String
   name    String
   price   BigInt
   size    Int
+}
+
+model User {
+  id        Int @id @map("_id")
+  firstName String
+  name      String
 }
