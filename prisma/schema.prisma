@@ -9,16 +9,18 @@ datasource db {
 }
 
 model Housings {
-  id      String  @id @map("_id")
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
   adresse String
-  city    String
+  city    String?
   name    String
-  price   Int
-  size    Int
+  price   String?
+  size    String?
 }
 
+/// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
 model User {
-  id        Int @id @map("_id")
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  birthday  String
   firstName String
   name      String
 }
