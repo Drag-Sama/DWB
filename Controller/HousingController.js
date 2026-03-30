@@ -48,16 +48,17 @@ sortHousingsByProperty = async (req, res) => {
 } }
 
 addHousing = async (req, res) => {
-    const {adresse,city,name,price,size} = req.body
+    const {adresse,city,name,price,size,userId} = req.body
     try{
         const housing = await prisma.housings.create(
         {
             data:{
-                adresse:adresse,
-                city:city,
-                name:name,
-                price:price,
-                size:size,
+                adresse,
+                city,
+                name,
+                price,
+                size,
+                userId
             },
         });
         res.json(housing)
