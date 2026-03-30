@@ -9,15 +9,21 @@ datasource db {
 }
 
 model Housings {
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id      Int  @id @map("_id")
   adresse String
-  city    String?
-  id_     Int     @map("id")
+  city    String
   name    String
   price   BigInt
   size    Int
 }
 
 model User {
+<<<<<<< HEAD
+  id        Int @id @map("_id")
+  firstName String
+  name      String
+}
+=======
   id String @id @default(auto()) @map("_id") @db.ObjectId
 }
+>>>>>>> 86a6c64393fb3bc76ee0248c8d292257ad0eba9e
