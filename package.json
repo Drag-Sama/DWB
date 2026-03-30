@@ -13,8 +13,11 @@
     "@prisma/client": "^6.19.2",
     "express": "^5.2.1",
     "prisma": "^6.19.2"
+<<<<<<< HEAD
   },
   "devDependencies": {
     "dotenv": "^17.3.1"
+=======
+>>>>>>> fba8149ba6ec127e8a1a24aab6f4648ba87ac033
   }
 }
