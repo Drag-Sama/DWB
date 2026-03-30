@@ -5,7 +5,11 @@ const router = express.Router();
 
 //Get
 router.get("/", housingController.getHousings)
-router.get("/{:id}", housingController.getHousingById)
+router.get("/get/:property/:value", housingController.getHousingsByProperty)
+router.get("/sort/:property", housingController.sortHousingsByProperty)
+router.post("/", housingController.addHousing)
+router.delete("/:id", housingController.deleteHousings)
+router.put("/:id", housingController.updateHousing)
 /*
 router.get("/:id", (req,res) => res.send(housingController.fetchHousingById(req.params.id)))
 router.get("/filter/:property/:value", (req,res) => res.send(housingController.fetchHousingBy(req.params.property,req.params.value)))
