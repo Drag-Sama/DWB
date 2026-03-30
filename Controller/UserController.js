@@ -1,14 +1,6 @@
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-class User {
-    constructor(id, firstName, name,birthday) {
-        this.firstName = firstName;
-        this.name = name;
-        this.birthday = birthday;
-    }
-}
-
 //GETs
 getAllUsers = async (req, res) => {
     try {

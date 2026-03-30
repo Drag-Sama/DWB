@@ -15,6 +15,9 @@ model Housings {
   name    String
   price   String?
   size    String?
+
+  userId String @db.ObjectId
+  user User     @relation(fields: [userId], references: [id])
 }
 
 /// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
@@ -23,4 +26,5 @@ model User {
   birthday  String
   firstName String
   name      String
+  housings Housings[]
 }
