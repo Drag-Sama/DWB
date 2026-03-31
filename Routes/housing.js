@@ -4,6 +4,13 @@ const housingMiddleware = require("../Middleware/HousingMiddleware")
 
 const router = express.Router();
 
+router.get("/", housingController.getHousings)
+router.get("/get",housingMiddleware.validateGet, housingController.getHousingsByProperty)
+router.get("/sort/:property", housingController.sortHousingsByProperty)
+router.post("/", housingMiddleware.validateAdd, housingController.addHousing)
+router.delete("/:id", housingMiddleware.validateId, housingController.deleteHousings)
+router.put("/:id",  housingMiddleware.validateId, housingController.updateHousing)
+
 //Get
 /**
  * @swagger
@@ -16,7 +23,7 @@ const router = express.Router();
  *       200:
  *         description: Succes
  */
-router.get("/", housingController.getHousings)
+
 
 /**
  * @swagger
@@ -70,7 +77,7 @@ router.get("/", housingController.getHousings)
  *          type: string
  *        description: The property you want to use to sort housings
  */
-router.get("/sort/:property", housingController.sortHousingsByProperty)
+
 //POST
 
 /**
@@ -116,7 +123,7 @@ router.get("/sort/:property", housingController.sortHousingsByProperty)
      *      201:
      *        description: Created
      */
-router.post("/", housingMiddleware.validateAdd, housingController.addHousing)
+
 
 
 //Get
@@ -138,7 +145,7 @@ router.post("/", housingMiddleware.validateAdd, housingController.addHousing)
  *          type: string
  *        description: The id of the housing you want to delete
  */
-router.delete("/:id", housingMiddleware.validateId, housingController.deleteHousings)
+
 
 
 /**
@@ -191,6 +198,6 @@ router.delete("/:id", housingMiddleware.validateId, housingController.deleteHous
      *          type: string
      *        description: The id of the housing you want to delete
      */
-router.put("/:id",  housingMiddleware.validateId, housingController.updateHousing)
+
 
 module.exports = router;
