@@ -39,6 +39,10 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
  *         name: size
  *         schema:
  *           type: string
+ *       - in: query
+ *         name: ownerId
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Success
