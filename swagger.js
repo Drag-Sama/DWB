@@ -5,9 +5,9 @@ const options = {
  definition: {
  openapi: '3.0.0',
  info: {
- title: 'API Users Demo',
+ title: 'API DWB',
  version: '1.0.0',
- description: 'Exemple d’API pour les utilisateurs' }
+ description: 'API pour DWB' }
  },
  apis: ['./Routes/*.js'] // fichiers à scanner pour générer la doc
 };
