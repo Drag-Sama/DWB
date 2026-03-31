@@ -2,7 +2,7 @@ const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //GETs
-getAllUsers = async (req, res) => {
+/*getAllUsers = async (req, res) => {
     try {
         const users = await prisma.user.findMany()
         res.json(users)
@@ -10,7 +10,30 @@ getAllUsers = async (req, res) => {
         console.error("Error getAllUsers : " + err)
         res.status(500).json({error: "Internal server error"})
     } 
+}*/
+
+getUsers = async (req,res) => {
+    try {
+        const {firstName,name,birthday,sort,order} = req.query
+        const filters = {}
+        if (firstName) filters.firstName = {contains:firstName}
+        if (name) filters.name = {contains:name}
+        if (birthday) filters.birthday = {contains:birthday}
+        let orderBy = undefined
+        if (sort) {
+            orderBy = {[sort]: order || "asc"} //asc par défaut si pas de sort après l'order
+        }
+        const users = await prisma.user.findMany({
+            where:filters,
+            orderBy
+        })
+        res.json(users)
+    } catch (err) {
+        console.error("Error getAllUsers : " + err)
+        res.status(500).json({error: "Internal server error"})
+    }
 }
+
 
 //POSTs
 addUser = async (req,res) => {
@@ -60,4 +83,4 @@ deleteUser = async (req,res) => {
 }
 
 
-module.exports = {updateUser,getAllUsers,addUser,deleteUser}
+module.exports = {updateUser,getAllUsers,addUser,deleteUser,addFilters,orderUsersBy,getUsers}
