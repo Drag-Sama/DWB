@@ -55,13 +55,13 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *            properties:
      *              firstName:
      *                type: string
-     *                default:""
+     *                default: ""
      *              name:
      *                type: string
-     *                default:"" 
+     *                default: "" 
      *              birthday:
      *                type: date
-     *                default:""
+     *                default: ""
      *     responses:
      *      201:
      *        description: Created
@@ -108,13 +108,13 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *            properties:
      *              firstName:
      *                type: string
-     *                default:"" 
+     *                default: "" 
      *              name:
      *                type: string
-     *                default:""
+     *                default: ""
      *              birthday:""
      *                type: date
-     *                default:""
+     *                default: ""
      *     responses:
      *      200:
      *        description: Edited
