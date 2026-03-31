@@ -20,7 +20,7 @@ getUsers = async (req,res) => {
         })
         res.json(users)
     } catch (err) {
-        console.error("Error getAllUsers : " + err)
+        console.error("Error getUsers : " + err)
         res.status(500).json({error: "Internal server error"})
     }
 }

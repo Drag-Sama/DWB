@@ -1,5 +1,7 @@
 const { body , validationResult, check, param} = require('express-validator');
 
+const helper = require("./helper")
+
 const nameRule = (name) =>
     check(name)
         .isLength({max:20}).withMessage(`${name} should contain max 20 characters.`)
@@ -47,23 +49,9 @@ const deleteUserValidationRules = [
     idParamRule
 ]
 
-const validate = (validations) => {
-    return async (req,res,next) => {
-        await Promise.all(validations.map(v => v.run(req)));
-
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            return res.status(400).json({errors:errors.array()})
-        }
-
-        next();
-    }
-}
-
-const validateAddUser = validate(addUserValidationRules)
-const validateGetUsers = validate(getUsersValidationRules)
-const validateUpdateUser = validate(updateUserValidationRules)
-const validateDeleteUser = validate(deleteUserValidationRules)
+const validateAddUser = helper.validate(addUserValidationRules)
+const validateGetUsers = helper.validate(getUsersValidationRules)
+const validateUpdateUser = helper.validate(updateUserValidationRules)
+const validateDeleteUser = helper.validate(deleteUserValidationRules)
 
 module.exports = {validateAddUser,validateGetUsers,validateUpdateUser,validateDeleteUser}
