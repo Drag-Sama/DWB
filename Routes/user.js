@@ -19,7 +19,7 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
  *     summary: Get users based on parameters
  *     parameters:
  *       - in: query
- *         name: firtsName
+ *         name: firstName
  *         schema:
  *           type: string
  *       - in: query
@@ -49,11 +49,11 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *           schema:
      *            type: object
      *            required:
-     *              - firtsName
+     *              - firstName
      *              - name
      *              - birthday
      *            properties:
-     *              firtsName:
+     *              firstName:
      *                type: string
      *                default:  
      *              name:
@@ -102,11 +102,11 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *           schema:
      *            type: object
      *            required:
-     *              - firtsName
+     *              - firstName
      *              - name
      *              - birthday
      *            properties:
-     *              firtsName:
+     *              firstName:
      *                type: string
      *                default:  
      *              name:
