@@ -5,29 +5,15 @@ const housingMiddleware = require("../Middleware/HousingMiddleware")
 const router = express.Router();
 
 router.get("/", housingController.getHousings)
-router.get("/get",housingMiddleware.validateGet, housingController.getHousingsByProperty)
-router.get("/sort/:property", housingController.sortHousingsByProperty)
 router.post("/", housingMiddleware.validateAdd, housingController.addHousing)
 router.delete("/:id", housingMiddleware.validateId, housingController.deleteHousings)
 router.put("/:id",  housingMiddleware.validateId, housingController.updateHousing)
 
-//Get
-/**
- * @swagger
- * /housing/:
- *   get:
- *     tags:
- *     - Housing
- *     summary: Returns all housings
- *     responses:
- *       200:
- *         description: Succes
- */
 
 
 /**
  * @swagger
- * '/housing/get':
+ * '/housing':
  *  get:
  *     tags:
  *     - Housing
@@ -58,25 +44,6 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
  *         description: Success
  */
 
-//Get
-/**
- * @swagger
- * /housing/sort/{property}:
- *    get:
- *     tags:
- *     - Housing
- *     summary: Sort all housings by property
- *     responses:
- *       200:
- *         description: Succes
- *    parameters:
- *      - in: path
- *        name: property # Note the name is the same as in the path
- *        required: true
- *        schema:
- *          type: string
- *        description: The property you want to use to sort housings
- */
 
 //POST
 
@@ -124,9 +91,6 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
      *        description: Created
      */
 
-
-
-//Get
 /**
  * @swagger
  * /housing/{id}:

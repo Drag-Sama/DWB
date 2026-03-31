@@ -21,63 +21,26 @@ getFilterFromBody = (req) => {
 //GET
 getHousings = async (req, res) => {
     try {
-        const housings = await prisma.Housings.findMany()
-        res.json(housings)
-    } catch (err) {
-        console.error("Error getHousings : " + err)
-         res.status(500).json({ error: "Internal server error" })
-} }
-
-getHousingsByProperty = async (req, res) => {
-    const filter = getFilterFromBody(req)
-    try {
-        const housings = await prisma.housings.findMany(
-            {where:filter}
-        );
-        res.json(housings)
-    } catch (err) {
-        console.error("Error getHousingsByProperty : " + err)
-         res.status(500).json({ error: "Internal server error" })
-} }
-
-sortHousingsByProperty = async (req, res) => {
-    const {property} = req.params
-    try {
-        if(!allowedFields.includes(property)){
-            res.status(400).json({error: "Property not valid"});
-            return -1
+        const {adresse,city,name,price,size,sort,order} = req.query
+        const filters = {}
+        if (adresse) filters.addHousing = {contains:adresse}
+        if (city) filters.city = {contains:city}
+        if (name) filters.name = {contains:name}
+        if (price) filters.price = {contains:price}
+        if (size) filters.size = {contains:size}
+        
+        let orderBy = undefined
+        if (sort) {
+            orderBy = {[sort]: order || "asc"} //asc par défaut si pas de sort après l'order
         }
         const housings = await prisma.housings.findMany({
-            orderBy: {
-                [property]: "desc",
-            },
-        });
-        console.log(housings)
+            where:filters,
+            orderBy
+        })
         res.json(housings)
+        res.status(200).json({message: "Success"})
     } catch (err) {
-        console.error("Error sortHousingsByProperty : " + err)
-         res.status(500).json({ error: "Internal server error" })
-} }
-
-filterHousingsByPropertyMax = async (req, res) => {
-    var {value} = req.params
-    const {adresse,city,name,price,size,userId} = req.body
-
-    const filter = {};
-    if(adresse) filter.adresse = adresse;
-    if(city) filter.city = city;
-    if(name) filter.name = name;
-    if(price) filter.price = parseInt(price);
-    if(size) filter.size = parseInt(size);
-    if(userId) filter.userId = userId;
-    try {
-        const housings = await prisma.housings.findMany(
-            {where:filter}
-        );
-        console.log(housings)
-        res.json(housings)
-    } catch (err) {
-        console.error("Error getHousingsByProperty : " + err)
+        console.error("Error getHousings : " + err)
          res.status(500).json({ error: "Internal server error" })
 } }
 
@@ -96,10 +59,9 @@ addHousing = async (req, res) => {
                 userId
             },
         });
-        res.status(201).json({succes: "Created"})
-        res.json(housing)
+        res.status(201).json({message: "Created", housing: housing})
     }catch (err) {
-        console.error("Error getHousings : " + err)
+        console.error("Error addHousing : " + err)
          res.status(500).json({ error: "Internal server error" })
     }
 }
@@ -108,12 +70,13 @@ addHousing = async (req, res) => {
 deleteHousings = async (req, res) => {
     const {id} = req.params
     try {
-        const housings = await prisma.housings.deleteMany(
+        const housing = await prisma.housings.deleteMany(
             {where:{id: id}}
         );
-        res.json(housings)
+        res.json(housing)
+        res.status(200).json({message: "Deleted", housing: housing})
     } catch (err) {
-        console.error("Error getHousingsByProperty : " + err)
+        console.error("Error deleteHousings : " + err)
          res.status(500).json({ error: "Internal server error" })
 } }
 
@@ -122,7 +85,7 @@ updateHousing = async (req, res) => {
     const {id} = req.params
     const {adresse,city,name,price,size} = req.body
     try {
-        const housings = await prisma.housings.updateMany(
+        const housing = await prisma.housings.updateMany(
             {where:{id: id},
             data:{
                 adresse:adresse,
@@ -132,10 +95,10 @@ updateHousing = async (req, res) => {
                 size:size,
             },}
         );
-        res.json(housings)
+       res.status(200).json({message: "Edited", housing: housing})
     } catch (err) {
-        console.error("Error getHousingsByProperty : " + err)
+        console.error("Error updateHousing : " + err)
          res.status(500).json({ error: "Internal server error" })
 } }
 
- module.exports = {getHousings, getHousingsByProperty, sortHousingsByProperty, addHousing, deleteHousings, updateHousing}
+ module.exports = {getHousings, addHousing, deleteHousings, updateHousing}

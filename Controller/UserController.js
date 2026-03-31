@@ -19,6 +19,7 @@ getUsers = async (req,res) => {
             orderBy
         })
         res.json(users)
+        res.status(201).json({message: "Success"})
     } catch (err) {
         console.error("Error getUsers : " + err)
         res.status(500).json({error: "Internal server error"})
@@ -38,7 +39,7 @@ addUser = async (req,res) => {
             birthday
            }
         })
-        res.status(201).json(user)
+        res.status(201).json({message: "Created", user: user})
     } catch (err) {
         console.error("Error AddUser : ", err)
         res.status(500).json({error: "Internal server error"})
@@ -55,6 +56,7 @@ updateUserById = async(req,res)=> {
             data: {firstName,name,birthday,housingsId}
         })
         res.json(updatedUser)
+        res.status(200).json({message: "Edited", user: updatedUser})
     } catch(err) {
         res.status(500).json({error: err.message})
     }

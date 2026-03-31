@@ -19,6 +19,7 @@ getRentals = async (req,res) => {
             orderBy
         })
         res.json(users)
+        res.status(200).json({success: "Success"})
     } catch (err) {
         console.error("Error getRentals : " + err)
         res.status(500).json({error: "Internal server error"})
@@ -37,7 +38,7 @@ addRental = async (req,res) => {
             end_date
            }
         })
-        res.status(201).json(rental)
+        res.status(201).json({message: "Created", rentel: rental})
     } catch (err) {
         console.error("Error AddRental : ", err)
         res.status(500).json({error: "Internal server error"})
@@ -53,6 +54,7 @@ updateRentalById = async(req,res)=> {
             data: {renterId,housingId,start_date,end_date}
         })
         res.json(updatedRental)
+        res.status(200).json({message: "Edited"})
     } catch(err) {
         console.error("Error updateRentalById : ",err)
         res.status(500).json({error: err.message})
