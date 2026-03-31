@@ -35,7 +35,8 @@ getHousings = async (req, res) => {
         }
         const housings = await prisma.housings.findMany({
             where:filters,
-            orderBy
+            orderBy,
+            include: {rentals:true,owner:true}
         })
         res.json(housings)
         res.status(200).json({message: "Success"})

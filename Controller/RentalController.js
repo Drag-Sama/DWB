@@ -14,11 +14,12 @@ getRentals = async (req,res) => {
         if (sort) {
             orderBy = {[sort]: order || "asc"} //asc par défaut si pas de sort après l'order
         }
-        const users = await prisma.rental.findMany({
+        const rentals = await prisma.rental.findMany({
             where:filters,
-            orderBy
+            orderBy,
+            include: {renter:true,housing:true}
         })
-        res.json(users)
+        res.json(rentals)
         res.status(200).json({success: "Success"})
     } catch (err) {
         console.error("Error getRentals : " + err)
