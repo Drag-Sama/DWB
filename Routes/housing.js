@@ -44,9 +44,6 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
  *         description: Success
  */
 
-
-//POST
-
 /**
      * @swagger
      * '/housing':
@@ -152,8 +149,8 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
      *                type: string
      *                default: 
      *     responses:
-     *      201:
-     *        description: Created
+     *      200:
+     *        description: Edited
      *     parameters:
      *      - in: path
      *        name: id # Note the name is the same as in the path
