@@ -21,14 +21,14 @@ getFilterFromBody = (req) => {
 //GET
 getHousings = async (req, res) => {
     try {
-        const {adresse,city,name,price,size,sort,order} = req.query
+        const {adresse,city,name,price,size,ownerId,sort,order} = req.query
         const filters = {}
         if (adresse) filters.addHousing = {contains:adresse}
         if (city) filters.city = {contains:city}
         if (name) filters.name = {contains:name}
         if (price) filters.price = {contains:price}
         if (size) filters.size = {contains:size}
-        
+        if (ownerId) filters.ownerId = ownerId
         let orderBy = undefined
         if (sort) {
             orderBy = {[sort]: order || "asc"} //asc par défaut si pas de sort après l'order
@@ -46,7 +46,7 @@ getHousings = async (req, res) => {
 
 //Post
 addHousing = async (req, res) => {
-    const {adresse,city,name,price,size,userId} = req.body
+    const {adresse,city,name,price,size,ownerId} = req.body
     try{
         const housing = await prisma.housings.create(
         {
@@ -56,7 +56,7 @@ addHousing = async (req, res) => {
                 name,
                 price,
                 size,
-                userId
+                ownerId
             },
         });
         res.status(201).json({message: "Created", housing: housing})
@@ -83,7 +83,7 @@ deleteHousings = async (req, res) => {
 //PUT
 updateHousing = async (req, res) => {
     const {id} = req.params
-    const {adresse,city,name,price,size} = req.body
+    const {adresse,city,name,price,size,ownerId} = req.body
     try {
         const housing = await prisma.housings.updateMany(
             {where:{id: id},
@@ -93,6 +93,7 @@ updateHousing = async (req, res) => {
                 name:name,
                 price:price,
                 size:size,
+                ownerId:ownerId
             },}
         );
        res.status(200).json({message: "Edited", housing: housing})

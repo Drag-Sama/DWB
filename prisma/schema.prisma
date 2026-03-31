@@ -11,19 +11,24 @@ datasource db {
 model Housings {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
   adresse String
-  city    String?
+  city    String
   name    String
   price   String
   size    String
-  userId  String? @db.ObjectId
+  rentals Rental[]
+  ownerId  String @db.ObjectId
+  owner    User @relation(fields:[ownerId],references: [id])
 }
 
 model Rental {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
   end_date   String
-  housingId  String
-  renterId   String
+  housingId  String @db.ObjectId
+  renterId   String @db.ObjectId
   start_date String
+  renter     User @relation(fields: [renterId],references: [id])
+  housing    Housings @relation(fields: [housingId],references: [id])
+
 }
 
 /// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
@@ -32,4 +37,6 @@ model User {
   birthday  String
   firstName String
   name      String
+  rentals   Rental[]
+  housings  Housings[]
 }
