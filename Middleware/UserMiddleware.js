@@ -7,10 +7,6 @@ const nameRule = (name) =>
         .isLength({max:20}).withMessage(`${name} should contain max 20 characters.`)
         .matches(/^[A-Za-z-]+$/).withMessage(`${name} should contain only letters or "-".`);
 
-const birthdayRule = 
-    check('birthday').matches(/^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/).withMessage('birthday must be in format mm/dd/yyyy.');
-    //      01 à 09 ou 10 à 12 / 01 à 09 ou 10 à 29 ou 30 à 31 / 4 chiffres (yyyy)
-
 const idParamRule = 
     param('id')
         .isMongoId().withMessage("id must be a MongoId")
@@ -19,13 +15,13 @@ const idParamRule =
 const addUserValidationRules = [
     nameRule('firstName').notEmpty().withMessage('firstName is required.'),
     nameRule('name').notEmpty().withMessage('name is required.'),
-    birthdayRule.notEmpty().withMessage('birthday is required.')
+    helper.dateRule('birthday').notEmpty().withMessage('birthday is required.')
 ]
 
 const getUsersValidationRules = [
     nameRule('firstName').optional(),
     nameRule('name').optional(),
-    birthdayRule.optional(),
+    helper.dateRule('birthday').optional(),
     check('sort')
         .optional()
         .isIn(['firstName','name','birthday']).withMessage('sort must be firstName, name or birthday.'),
@@ -38,7 +34,7 @@ const updateUserValidationRules = [
     idParamRule,
     nameRule('firstName').optional(),
     nameRule('name').optional(),
-    birthdayRule.optional(),
+    helper.dateRule('birthday').optional(),
     check('housingsId')
         .optional()
         .isArray().withMessage("housingsId must be an array")

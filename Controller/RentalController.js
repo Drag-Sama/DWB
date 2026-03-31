@@ -3,10 +3,11 @@ const prisma = new PrismaClient()
 
 getRentals = async (req,res) => {
     try {
-        const {renterId,housingId,start_date,end_date,sort,order} = req.query
+        const {id,renterId,housingId,start_date,end_date,sort,order} = req.query
         const filters = {}
-        if (renterId) filters.renterId = {contains:renterId}
-        if (housingId) filters.housingId = {contains:housingId}
+        if (id) filters.id = id
+        if (renterId) filters.renterId = renterId
+        if (housingId) filters.housingId = housingId
         if (start_date) filters.start_date = {contains:start_date}
         if (end_date) filters.end_date = {contains:end_date}
         let orderBy = undefined
