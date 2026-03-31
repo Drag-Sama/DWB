@@ -63,16 +63,16 @@ router.delete("/:id",rentalMiddleware.validateDeleteRentalById,rentalController.
      *            properties:
      *              renterId:
      *                type: string
-     *                default:  
+     *                default:""  
      *              housingId:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              start_date:
      *                type: date
-     *                default: 
+     *                default:"" 
      *              end_date:
      *                type: date
-     *                default: 
+     *                default:""
      *     responses:
      *      201:
      *        description: Created
@@ -119,16 +119,16 @@ router.delete("/:id",rentalMiddleware.validateDeleteRentalById,rentalController.
      *            properties:
      *              renterId:
      *                type: string
-     *                default:  
+     *                default:""  
      *              housingId:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              start_date:
      *                type: date
-     *                default: 
+     *                default:"" 
      *              end_date:
      *                type: date
-     *                default: 
+     *                default:"" 
      *     responses:
      *      200:
      *        description: Edited

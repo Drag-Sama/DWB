@@ -71,22 +71,22 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
      *            properties:
      *              adresse:
      *                type: string
-     *                default:  
+     *                default:""  
      *              city:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              name:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              price:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              size:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              ownerId:
      *                type: string
-     *                default: 
+     *                default:"" 
      *     responses:
      *      201:
      *        description: Created
@@ -136,22 +136,22 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
      *            properties:
      *              adresse:
      *                type: string
-     *                default:  
+     *                default:""  
      *              city:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              name:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              price:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              size:
      *                type: string
-     *                default: 
+     *                default:"" 
      *              ownerId:
      *                type: string
-     *                default: 
+     *                default:"" 
      *     responses:
      *      200:
      *        description: Edited

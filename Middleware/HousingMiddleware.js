@@ -20,8 +20,7 @@ const idRule = (name) =>
 
 const intRule = (name) => 
     fieldRule(name)
-        .isInt().withMessage(`${name} must be an int`)
-
+        .isInt({min:0}).withMessage(`${name} must be an int >= 0`)
 
 const isValuesValid = () => [
     stringRule('adresse'),
