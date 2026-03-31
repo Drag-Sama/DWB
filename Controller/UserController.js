@@ -83,4 +83,4 @@ deleteUser = async (req,res) => {
 }
 
 
-module.exports = {updateUser,getAllUsers,addUser,deleteUser,addFilters,orderUsersBy,getUsers}
+module.exports = {updateUser,addUser,deleteUser,addFilters,orderUsersBy,getUsers}
