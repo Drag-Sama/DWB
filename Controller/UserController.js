@@ -47,11 +47,12 @@ addUser = async (req,res) => {
 
 //PUTs
 updateUser = async(req,res)=> {
-    const {id} = req.params
     try {
+        const {id} = req.params
+        const {firstName, name, birthday, housingsId} = req.body;
         const updatedUser = await prisma.user.update({
             where: {id},
-            data: req.body
+            data: {firstName,name,birthday,housingsId}
         })
         res.json(updatedUser)
     } catch(err) {

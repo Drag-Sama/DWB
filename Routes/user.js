@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/",userMiddleware.validateGetUsers,userController.getUsers)
 router.post("/",userMiddleware.validateAddUser,userController.addUser)
-router.delete("/",userController.deleteUser)
-router.put("/", userController.updateUser)
+router.delete("/",userMiddleware.validateDeleteUser,userController.deleteUser)
+router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUser)
 
 module.exports = router
