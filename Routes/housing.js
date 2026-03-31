@@ -1,14 +1,20 @@
 const express = require("express");
 const housingController = require("../Controller/HousingController")
+const housingMiddleware = require("../Middleware/HousingMiddleware")
 
 const router = express.Router();
 
 //Get
 router.get("/", housingController.getHousings)
-router.get("/get/:property/:value", housingController.getHousingsByProperty)
+router.get("/get", housingController.getHousingsByProperty)
 router.get("/sort/:property", housingController.sortHousingsByProperty)
-router.post("/", housingController.addHousing)
+router.get("/filtermin/:property/:value", housingController.sortHousingsByProperty)
+router.get("/filtermax/:property/:value", housingController.sortHousingsByProperty)
+//POST
+router.post("/",  housingMiddleware.isValueValid(), housingMiddleware.addHousing)
+//DELETE
 router.delete("/:id", housingController.deleteHousings)
+//PUT
 router.put("/:id", housingController.updateHousing)
 /*
 router.get("/:id", (req,res) => res.send(housingController.fetchHousingById(req.params.id)))

@@ -4,7 +4,21 @@ const prisma = new PrismaClient()
 const allowedFields = ["id", "adresse", "city", "name", "price", "size"]
 const intFields = ["price", "size"]
 
+getFilterFromBody = (req) => {
+    const {adresse,city,name,price,size,userId} = req.body
+    
+    const filter = {};
+    if(adresse) filter.adresse = adresse;
+    if(city) filter.city = city;
+    if(name) filter.name = name;
+    if(price) filter.price = price;
+    if(size) filter.size = size;
+    if(userId) filter.userId = userId;
 
+    return filter;
+}
+
+//GET
 getHousings = async (req, res) => {
     try {
         const housings = await prisma.Housings.findMany()
@@ -15,16 +29,11 @@ getHousings = async (req, res) => {
 } }
 
 getHousingsByProperty = async (req, res) => {
-    var {property,value} = req.params
-    console.log(property) //TODO verifier que property est bien dans une liste avec toutes les propriétés de Housing
-    if(intFields.includes(property)){
-        value = Number(value)
-    }
+    const filter = getFilterFromBody(req)
     try {
         const housings = await prisma.housings.findMany(
-            {where:{[property]: value}}
+            {where:filter}
         );
-        console.log(housings)
         res.json(housings)
     } catch (err) {
         console.error("Error getHousingsByProperty : " + err)
@@ -33,8 +42,11 @@ getHousingsByProperty = async (req, res) => {
 
 sortHousingsByProperty = async (req, res) => {
     const {property} = req.params
-    console.log(property) //TODO verifier que property est bien dans une liste avec toutes les propriétés de Housing
     try {
+        if(!allowedFields.includes(property)){
+            res.status(400).json({error: "Property not valid"});
+            return -1
+        }
         const housings = await prisma.housings.findMany({
             orderBy: {
                 [property]: "desc",
@@ -47,6 +59,29 @@ sortHousingsByProperty = async (req, res) => {
          res.status(500).json({ error: "Internal server error" })
 } }
 
+filterHousingsByPropertyMax = async (req, res) => {
+    var {value} = req.params
+    const {adresse,city,name,price,size,userId} = req.body
+
+    const filter = {};
+    if(adresse) filter.adresse = adresse;
+    if(city) filter.city = city;
+    if(name) filter.name = name;
+    if(price) filter.price = parseInt(price);
+    if(size) filter.size = parseInt(size);
+    if(userId) filter.userId = userId;
+    try {
+        const housings = await prisma.housings.findMany(
+            {where:filter}
+        );
+        console.log(housings)
+        res.json(housings)
+    } catch (err) {
+        console.error("Error getHousingsByProperty : " + err)
+         res.status(500).json({ error: "Internal server error" })
+} }
+
+//Post
 addHousing = async (req, res) => {
     const {adresse,city,name,price,size,userId} = req.body
     try{
@@ -68,6 +103,7 @@ addHousing = async (req, res) => {
     }
 }
 
+//DELETE
 deleteHousings = async (req, res) => {
     const {id} = req.params
     try {
@@ -80,6 +116,7 @@ deleteHousings = async (req, res) => {
          res.status(500).json({ error: "Internal server error" })
 } }
 
+//PUT
 updateHousing = async (req, res) => {
     const {id} = req.params
     const {adresse,city,name,price,size} = req.body
