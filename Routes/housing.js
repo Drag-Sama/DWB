@@ -157,7 +157,7 @@ router.put("/:id",  housingMiddleware.validateId, housingController.updateHousin
      *        required: true
      *        schema:
      *          type: string
-     *        description: The id of the housing you want to delete
+     *        description: The id of the housing you want to edit
      */
 
 

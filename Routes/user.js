@@ -12,18 +12,14 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
 
 /**
  * @swagger
- * '/housing':
+ * '/user':
  *  get:
  *     tags:
- *     - Housing
- *     summary: Get housings based on parameters
+ *     - User
+ *     summary: Get users based on parameters
  *     parameters:
  *       - in: query
- *         name: adresse
- *         schema:
- *           type: string
- *       - in: query
- *         name: city
+ *         name: firtsName
  *         schema:
  *           type: string
  *       - in: query
@@ -31,13 +27,9 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
  *         schema:
  *           type: string
  *       - in: query
- *         name: price
+ *         name: birthday
  *         schema:
- *           type: string
- *       - in: query
- *         name: size
- *         schema:
- *           type: string
+ *           type: date
  *     responses:
  *       200:
  *         description: Success
@@ -45,11 +37,11 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
 
 /**
      * @swagger
-     * '/housing':
+     * '/user':
      *  post:
      *     tags:
-     *     - Housing
-     *     summary: Create new housing
+     *     - User
+     *     summary: Create new user
      *     requestBody:
      *      required: true
      *      content:
@@ -57,30 +49,18 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *           schema:
      *            type: object
      *            required:
-     *              - adresse
-     *              - city
+     *              - firtsName
      *              - name
-     *              - price
-     *              - size
-     *              - ownerId
+     *              - birthday
      *            properties:
-     *              adresse:
+     *              firtsName:
      *                type: string
      *                default:  
-     *              city:
-     *                type: string
-     *                default: 
      *              name:
      *                type: string
      *                default: 
-     *              price:
-     *                type: string
-     *                default: 
-     *              size:
-     *                type: string
-     *                default: 
-     *              ownerId:
-     *                type: string
+     *              birthday:
+     *                type: date
      *                default: 
      *     responses:
      *      201:
@@ -89,11 +69,11 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
 
 /**
  * @swagger
- * /housing/{id}:
+ * /user/{id}:
  *    delete:
  *     tags:
- *     - Housing
- *     summary: Delete an housing 
+ *     - User
+ *     summary: Delete an user 
  *     responses:
  *       200:
  *         description: Succes
@@ -103,18 +83,18 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
  *        required: true
  *        schema:
  *          type: string
- *        description: The id of the housing you want to delete
+ *        description: The id of the user you want to delete
  */
 
 
 
 /**
      * @swagger
-     * '/housing/{id}':
+     * '/user/{id}':
      *  put:
      *     tags:
-     *     - Housing
-     *     summary: Edit an housing
+     *     - User
+     *     summary: Edit an user
      *     requestBody:
      *      required: true
      *      content:
@@ -122,30 +102,18 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *           schema:
      *            type: object
      *            required:
-     *              - adresse
-     *              - city
+     *              - firtsName
      *              - name
-     *              - price
-     *              - size
-     *              - ownerId
+     *              - birthday
      *            properties:
-     *              adresse:
+     *              firtsName:
      *                type: string
      *                default:  
-     *              city:
-     *                type: string
-     *                default: 
      *              name:
      *                type: string
      *                default: 
-     *              price:
-     *                type: string
-     *                default: 
-     *              size:
-     *                type: string
-     *                default: 
-     *              ownerId:
-     *                type: string
+     *              birthday:
+     *                type: date
      *                default: 
      *     responses:
      *      200:
@@ -156,7 +124,7 @@ router.put("/:id",userMiddleware.validateUpdateUser, userController.updateUserBy
      *        required: true
      *        schema:
      *          type: string
-     *        description: The id of the housing you want to delete
+     *        description: The id of the user you want to edit
      */
 
 module.exports = router

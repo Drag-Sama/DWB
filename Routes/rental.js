@@ -138,6 +138,6 @@ router.delete("/:id",rentalMiddleware.validateDeleteRentalById,rentalController.
      *        required: true
      *        schema:
      *          type: string
-     *        description: The id of the rental you want to delete
+     *        description: The id of the rental you want to edit
      */
 module.exports = router
