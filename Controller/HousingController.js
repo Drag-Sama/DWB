@@ -96,6 +96,7 @@ addHousing = async (req, res) => {
                 userId
             },
         });
+        res.status(200).json({})
         res.json(housing)
     }catch (err) {
         console.error("Error getHousings : " + err)
