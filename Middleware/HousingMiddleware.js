@@ -1,24 +1,59 @@
-const { body , validationResult} = require('express-validator');
+const {validationResult, check} = require('express-validator');
+
+const fieldRule = (name) => 
+    check(name).notEmpty().withMessage(`${name} must not be empty`)
+
+
+const stringRule = (name) => 
+    fieldRule(name)
+        .isString().withMessage(`${name} must be a string`)
+
+
+const nameRule = (name) => 
+    stringRule(name)
+        .isLength({max:20}).withMessage(`${name} should contain max 20 characters.`)
+        .matches(/^[A-Za-z-]+$/).withMessage(`${name} should contain only letters or "-".`)
+
+const idRule = (name) => 
+    stringRule(name)
+    .isMongoId().withMessage(`${name} must be a Mongo Id`)
+
+const intRule = (name) => 
+    fieldRule(name)
+        .isInt().withMessage(`${name} must be an int`)
+
 
 const isValuesValid = () => [
-    body('adresse').notEmpty().withMessage('Adresse must not be empty')
-        .isString().withMessage('Adresse must be a string'), 
+    stringRule('adresse'),
 
-    body('city').notEmpty().withMessage('City must not be empty')
-        .isString().withMessage('City must be a string'), 
+    nameRule('city'),
     
-    body('name').notEmpty().withMessage('Name must not be empty')
-        .isString().withMessage('Name must be a string'), 
+   nameRule('name'),
 
-    body('price').notEmpty().withMessage('Price must not be empty')
-        .isInt().withMessage('Price must be an int'),   
+    intRule('price'),
     
-    body('size').notEmpty().withMessage('Size must not be empty')
-        .isInt().withMessage('Size must be an int'),   
+    intRule('size'),
 
-    body('ownerId').notEmpty().withMessage('OwnerId must not be empty')
-        .isString().withMessage('OwnerId must be a string'),     
+    idRule('ownerId')    
 ];
+
+const isValuesValidOptional = () => [
+    stringRule('adresse').optional(),
+
+    nameRule('city').optional(),
+    
+   nameRule('name').optional(),
+
+    intRule('price').optional(),
+    
+    intRule('size').optional(),
+
+    idRule('ownerId').optional()    
+];
+
+const isIdValid = () => [
+    idRule('id')
+]
 
 const validate = (validations) => {
     return async (req, res, next) => {
@@ -33,4 +68,8 @@ const validate = (validations) => {
 
 const validateAdd = validate(isValuesValid());
 
-module.exports = {validateAdd}
+const validateGet = validate(isValuesValidOptional());
+
+const validateId = validate(isIdValid());
+
+module.exports = {validateAdd, validateGet, validateId}
