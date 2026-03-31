@@ -1,4 +1,4 @@
-const { body , validationResult, check, param} = require('express-validator');
+const { body, check, param} = require('express-validator');
 
 const helper = require("./helper")
 

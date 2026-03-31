@@ -46,7 +46,7 @@ addUser = async (req,res) => {
 }
 
 //PUTs
-updateUser = async(req,res)=> {
+updateUserById = async(req,res)=> {
     try {
         const {id} = req.params
         const {firstName, name, birthday, housingsId} = req.body;
@@ -61,7 +61,7 @@ updateUser = async(req,res)=> {
 }
 
 //DELETEs
-deleteUser = async (req,res) => {
+deleteUserById = async (req,res) => {
     try {
         const {id} = req.params
         const user = await prisma.user.deleteMany({
@@ -75,4 +75,4 @@ deleteUser = async (req,res) => {
 }
 
 
-module.exports = {updateUser,addUser,deleteUser,getUsers}
+module.exports = {updateUserById,addUser,deleteUserById,getUsers}
