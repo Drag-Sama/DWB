@@ -15,22 +15,21 @@ model Housings {
   name    String
   price   String
   size    String
-  ownerId  String? @db.ObjectId
+  userId  String? @db.ObjectId
+}
+
+model Rental {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  end_date   String
+  housingId  String
+  renterId   String
+  start_date String
 }
 
 /// This collection uses a JSON Schema defined in the database, which requires additional setup for migrations. Visit https://pris.ly/d/mongodb-json-schema for more info.
 model User {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  birthday    String
-  firstName   String
-  name        String
-  housingsId  String[] @db.ObjectId
-}
-
-model Rental {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  renterId    String @db.ObjectId //doit-on vérif nous mm si les id existe ?
-  housingId   String @db.ObjectId
-  start_date  String
-  end_date    String
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  birthday  String
+  firstName String
+  name      String
 }

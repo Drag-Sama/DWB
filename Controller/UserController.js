@@ -20,7 +20,7 @@ getUsers = async (req,res) => {
         })
         res.json(users)
     } catch (err) {
-        console.error("Error getAllUsers : " + err)
+        console.error("Error getUsers : " + err)
         res.status(500).json({error: "Internal server error"})
     }
 }
@@ -46,12 +46,13 @@ addUser = async (req,res) => {
 }
 
 //PUTs
-updateUser = async(req,res)=> {
-    const {id} = req.params
+updateUserById = async(req,res)=> {
     try {
+        const {id} = req.params
+        const {firstName, name, birthday, housingsId} = req.body;
         const updatedUser = await prisma.user.update({
             where: {id},
-            data: req.body
+            data: {firstName,name,birthday,housingsId}
         })
         res.json(updatedUser)
     } catch(err) {
@@ -60,7 +61,7 @@ updateUser = async(req,res)=> {
 }
 
 //DELETEs
-deleteUser = async (req,res) => {
+deleteUserById = async (req,res) => {
     try {
         const {id} = req.params
         const user = await prisma.user.deleteMany({
@@ -74,4 +75,4 @@ deleteUser = async (req,res) => {
 }
 
 
-module.exports = {updateUser,addUser,deleteUser,getUsers}
+module.exports = {updateUserById,addUser,deleteUserById,getUsers}

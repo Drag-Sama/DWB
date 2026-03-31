@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 
 const housingRouter = require("./Routes/housing")
 const userRouter = require("./Routes/user")
+const rentalRouter = require("./Routes/rental")
 
 const swaggerUi = require("swagger-ui-express");
 const specs = require("./swagger")
@@ -15,6 +16,7 @@ app.use(express.json())
 
 app.use("/housing", housingRouter);
 app.use("/user",userRouter);
+app.use("/rental",rentalRouter);
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
