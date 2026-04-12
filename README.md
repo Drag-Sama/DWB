@@ -21,6 +21,10 @@ npm prisma generate
 node index.js
 ```
 
+### Adresse du serveur
+
+https://localhost:3000
+
 ### Swagger
 
 http://localhost:3000/api-docs/#/
@@ -29,23 +33,30 @@ http://localhost:3000/api-docs/#/
 ## Database
 
 ### Housing
-id      String  
-adresse String
-city    String
-name    String
-price   Int
-size    Int
-userId  String
+| Attributes | Type |
+|---------|--------|
+| id      | String |
+| adresse | String |
+| city    | String |
+| name    | String |
+| price   | Int    |
+| size    | Int    |
+| userId  | String |
 
 ### User
-id        String  
-firstname String
-name      String
-birthday  Date
+
+| Attributes | Type |
+|---------|--------|
+| id      | String |
+| firstName| String |
+| name    | String |
+| birthday| Date |
 
 ### Rental
-id        String  
-startDate Date
-endDate   Date
-housingId String  
-renterId  String  
+
+| Attributes | Type |
+|----------|--------|
+| id       | String |
+| startDate| Date |
+| endDate  | Date |
+| renterId| String |
