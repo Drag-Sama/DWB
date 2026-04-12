@@ -2,6 +2,20 @@ const { body, check, param} = require('express-validator');
 
 const helper = require("./helper")
 
+exist = async (req, res, next) => {
+    const {id} = req.params;
+
+    const user = await prisma.user.findUnique({
+        where: {id: id}
+    });
+
+    if(user){
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    next();
+};
+
 const nameRule = (name) =>
     check(name)
         .isLength({max:20}).withMessage(`${name} should contain max 20 characters.`)
@@ -32,6 +46,7 @@ const getUsersValidationRules = [
 
 const updateUserValidationRules = [
     idParamRule,
+    exist,
     nameRule('firstName').optional(),
     nameRule('name').optional(),
     helper.dateRule('birthday').optional(),
@@ -41,8 +56,13 @@ const updateUserValidationRules = [
         .custom((ids) => ids.every(id => id !== "")).withMessage("housingsId must not contain empty values")
 ]
 
+
+
+
+
 const deleteUserValidationRules = [
-    idParamRule
+    idParamRule,
+    exist
 ]
 
 const validateAddUser = helper.validate(addUserValidationRules)
